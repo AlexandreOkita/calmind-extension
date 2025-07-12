@@ -1,6 +1,7 @@
 // Open register page on installation
 chrome.runtime.onInstalled.addListener(({ reason }) => {
   if (reason === chrome.runtime.OnInstalledReason.INSTALL) {
+    console.log("Extension installed, opening registration page");
     chrome.tabs.create({
       url: "https://3d90d37c-7c71-42b1-81ed-57de8a317863.weweb-preview.io/",
     });
@@ -20,7 +21,7 @@ chrome.runtime.onMessage.addListener((message) => {
 chrome.runtime.onMessage.addListener((message) => {
   if (message.type === "SAVE_TOKEN") {
     chrome.storage.local.set({ calmind_profile: message.profile }, () => {
-      console.log("Token salvo!");
+      console.log("Perfil salvo:", { calmind_profile: message.profile });
     });
   }
 });

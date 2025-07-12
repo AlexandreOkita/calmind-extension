@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import RegisterMiddleware from "./RegisterMiddleware";
 
 // Cria um container dentro da página
 const rootEl = document.createElement("div");
@@ -8,4 +9,9 @@ document.body.appendChild(rootEl);
 
 // Usa React 18
 const root = ReactDOM.createRoot(rootEl);
-root.render(<App />);
+root.render(
+  <div>
+    <RegisterMiddleware />
+    <App />
+  </div>
+);
