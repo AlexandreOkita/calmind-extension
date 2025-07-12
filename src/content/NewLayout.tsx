@@ -1,4 +1,22 @@
-function NewLayout({showOriginalLayout}: {showOriginalLayout: () => void}) {
+import { useEffect } from "react"
+import Templates from "../controllers/templates";
+import type { Readability } from "@mozilla/readability";
+
+function NewLayout({showOriginalLayout, article}: {showOriginalLayout: () => void, article?: ReturnType<typeof Readability.prototype.parse> | null}) {
+  
+  async function getFirstTemplate() {
+    // console.log("Article:", article);
+    chrome.storage.local.get('calmind_profile', (result) => {
+      const profile = result.calmind_profile;
+      console.log("Perfil carregado:", profile);
+    });
+    const template = await Templates.getFirstTemplate({ title: article?.title, content: article?.content, excerpt: article?.excerpt, textContent: article?.textContent });
+  }
+
+  useEffect(() => {
+    getFirstTemplate();
+  }, []);
+
   return (
     <>
     <div style={{ backgroundColor: "white", height: "100vh" }}>

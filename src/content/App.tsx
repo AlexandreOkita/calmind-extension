@@ -1,18 +1,27 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import NewLayout from './NewLayout'
 import ReactDOM from 'react-dom/client'
+import { Readability } from '@mozilla/readability'
 
 function App() {
   const layoutRootRef = useRef<HTMLDivElement | null>(null)
+  const articleRef = useRef<ReturnType<typeof Readability.prototype.parse> | null>(null)
+  const [article, setArticle] = useState<ReturnType<typeof Readability.prototype.parse> | null>(null)
 
   function showOriginalLayout() {
     layoutRootRef.current?.remove()
     layoutRootRef.current = null
-
     document.body.style.display = 'block'
   }
 
   function showNewLayout() {
+    if (!articleRef.current) {
+      const clonedDoc = document.cloneNode(true) as Document;
+      const article = new Readability(clonedDoc).parse();
+      setArticle(article)
+      console.log('Article:', article)
+    }
+
     document.body.style.display = 'none'
 
     const rootDiv = document.createElement('div')
@@ -30,7 +39,12 @@ function App() {
     document.documentElement.appendChild(rootDiv)
 
     const root = ReactDOM.createRoot(rootDiv)
-    root.render(<NewLayout showOriginalLayout={showOriginalLayout} />)
+    root.render(
+      <NewLayout
+        showOriginalLayout={showOriginalLayout}
+        article={article}
+      />
+    )
   }
 
   return (
@@ -44,11 +58,11 @@ function App() {
         padding: '10px',
         borderRadius: '8px',
         boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-        cursor: 'pointer'
+        cursor: 'pointer',
       }}
       onClick={showNewLayout}
     >
-      <p>Aplicar novo layout</p>
+      <p>{'Aplicar novo layout'}</p>
     </div>
   )
 }
