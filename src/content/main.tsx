@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import RegisterMiddleware from "./RegisterMiddleware";
+import "./index.css";
 
 // Cria um container dentro da página
 const rootEl = document.createElement("div");
