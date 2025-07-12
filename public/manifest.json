@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Calmind",
+  "version": "1.0",
+  "description": "An extension for neurodivergent individuals to learn any topic in a way that suits them best.",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": [],
+  "icons": {}
+}
