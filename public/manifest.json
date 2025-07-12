@@ -3,6 +3,15 @@
   "name": "Calmind",
   "version": "1.0",
   "description": "An extension for neurodivergent individuals to learn any topic in a way that suits them best.",
+  "permissions": ["scripting", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["main.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "action": {
     "default_popup": "index.html"
   },
@@ -10,6 +19,5 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "permissions": ["tabs"],
   "icons": {}
 }
