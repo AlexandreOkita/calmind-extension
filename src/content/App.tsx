@@ -1,36 +1,33 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import NewLayout from './NewLayout'
 import ReactDOM from 'react-dom/client'
 
 function App() {
   const layoutRootRef = useRef<HTMLDivElement | null>(null)
 
-  useEffect(() => {
-    const wrapper = document.createElement('div')
-    wrapper.id = 'original-content'
-
-    while (document.body.firstChild) {
-      wrapper.appendChild(document.body.firstChild)
-    }
-
-    document.body.appendChild(wrapper)
-  }, [])
-
   function showOriginalLayout() {
     layoutRootRef.current?.remove()
+    layoutRootRef.current = null
 
-    const original = document.getElementById('original-content')
-    if (original) original.style.display = 'block'
-    
+    document.body.style.display = 'block'
   }
 
   function showNewLayout() {
-    const original = document.getElementById('original-content')
-    if (original) original.style.display = 'none'
+    document.body.style.display = 'none'
 
     const rootDiv = document.createElement('div')
+    rootDiv.id = 'new-layout-root'
+    rootDiv.style.position = 'absolute'
+    rootDiv.style.top = '0'
+    rootDiv.style.left = '0'
+    rootDiv.style.width = '100vw'
+    rootDiv.style.height = '100vh'
+    rootDiv.style.zIndex = '99998'
+    rootDiv.style.backgroundColor = 'white'
+    rootDiv.style.overflow = 'auto'
+
     layoutRootRef.current = rootDiv
-    document.body.appendChild(rootDiv)
+    document.documentElement.appendChild(rootDiv)
 
     const root = ReactDOM.createRoot(rootDiv)
     root.render(<NewLayout showOriginalLayout={showOriginalLayout} />)
@@ -49,13 +46,9 @@ function App() {
         boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
         cursor: 'pointer'
       }}
-      onClick={() => {
-            showNewLayout()
-        }}
+      onClick={showNewLayout}
     >
-      <p>
-        Aplicar novo layout
-      </p>
+      <p>Aplicar novo layout</p>
     </div>
   )
 }
