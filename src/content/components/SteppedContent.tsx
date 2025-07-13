@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { ChevronLeft, ChevronRight, RotateCcw, Layout } from "lucide-react";
@@ -49,6 +49,19 @@ export function SteppedContent({
     }
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        nextSection();
+      } else if (e.key === "ArrowLeft") {
+        prevSection();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [nextSection, prevSection]);
+
   const resetToBeginning = () => {
     setCurrentSection(0);
   };
@@ -71,6 +84,7 @@ export function SteppedContent({
 
   return (
     <div
+      id="stepped-content"
       className={`min-h-screen ${
         preferences.hasReadingDifficulty
           ? colors.bg

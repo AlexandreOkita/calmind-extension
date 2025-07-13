@@ -81,11 +81,6 @@ function NewLayout({
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        {/* <div className="flex flex-row items-center justify-center">
-          <p className="mr-5">Adaptando sua experiência...</p>
-          <Spinner size="large" show={true} />
-        </div> */}
-
         <Loader />
       </div>
     );
