@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Templates from "../controllers/Templates";
 import type { Readability } from "@mozilla/readability";
-import CalmindLayout from "./CalmindLayout";
+import CalmindPopup from "../components/CalmindPopup";
 
 function NewLayout({
   showOriginalLayout,
@@ -16,7 +16,7 @@ function NewLayout({
       const profile = result.calmind_profile;
       console.log("Perfil carregado:", profile);
     });
-    await Templates.getFirstTemplate({
+    const template = await Templates.getFirstTemplate({
       title: article?.title,
       content: article?.content,
       excerpt: article?.excerpt,
@@ -35,10 +35,11 @@ function NewLayout({
 
   return (
     <>
-      <CalmindLayout
-        preferences={preferences}
-        onBack={() => {}}
-      ></CalmindLayout>
+      <div className="bg-red h-screen">
+        <h1 className="bg-blue-400">Novo título3</h1>
+        <h3>Sub título</h3>
+        <span>Conteúdo do novo layout</span>
+      </div>
       <div
         style={{
           position: "fixed",
