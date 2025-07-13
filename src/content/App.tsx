@@ -40,7 +40,6 @@ function App() {
 
       const root = ReactDOM.createRoot(rootDiv);
 
-      console.log({ myArticle });
       root.render(
         <NewLayout
           showOriginalLayout={showOriginalLayout}
@@ -48,6 +47,13 @@ function App() {
         />
       );
     }
+  }
+
+  if (
+    window.location.hostname ===
+    "3d90d37c-7c71-42b1-81ed-57de8a317863.weweb-preview.io"
+  ) {
+    return null;
   }
 
   return <CalmindPopup showNewLayout={showNewLayout} />;

@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
-import { ChevronLeft, ChevronRight, RotateCcw, Layout } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  RotateCcw,
+  Layout,
+  Fan,
+} from "lucide-react";
 import type { UserPreferences } from "../../model/user_preferences";
 import type { ContentSection } from "@/model/content_section";
 import { useDyslexiaSettings } from "../contexts/NeuroDiversitySettingsContext"; // Importe o hook
 import { ProgressHeader } from "../components/ProgressHeader";
 import { InlineDiffViewer } from "./InlineDiffViewer";
 import { TextDiffController } from "./TextDiffController";
+import { FancyButton } from "./FancyButton";
+import { ContentText } from "./ContentText";
+import { TextNeurodiversityBuilder } from "../../model/text_neurodiversity_builder";
 
 type SteppedContentProps = {
   preferences: UserPreferences;
@@ -40,6 +49,13 @@ export function SteppedContent({
   const colors = getColorScheme();
   const section = contentSections[currentSection];
   const progress = ((currentSection + 1) / contentSections.length) * 100;
+
+  const textStyles = new TextNeurodiversityBuilder(preferences)
+    .withFontFamily(getFontFamilyClass())
+    .withTextColor(colors.text)
+    .withFontBold()
+    .withDyslexiaStyles(dyslexiaStyles)
+    .build();
 
   const nextSection = () => {
     if (currentSection < contentSections.length - 1) {
@@ -88,9 +104,17 @@ export function SteppedContent({
 
   const showTextExperience = () => {
     if (textExperience === "original") {
-      return <p {...commonTextProps}>{section.originalContent}</p>;
+      return (
+        <ContentText text={section.originalContent} textStyles={textStyles} />
+      );
+
+      // return <p {...commonTextProps}>{section.originalContent}</p>;
     } else if (textExperience === "replaced") {
-      return <p {...commonTextProps}>{section.replacedContent}</p>;
+      return (
+        <ContentText text={section.replacedContent} textStyles={textStyles} />
+      );
+
+      // return <p {...commonTextProps}>{section.replacedContent}</p>;
     } else if (textExperience === "diff") {
       return (
         <InlineDiffViewer
@@ -141,33 +165,33 @@ export function SteppedContent({
               {showTextExperience()}
             </div>
             <div className="flex items-center justify-between pt-6 border-t">
-              <Button
-                variant="outline"
+              <FancyButton
                 onClick={prevSection}
                 disabled={currentSection === 0}
-                className="flex items-center gap-2 bg-transparent"
               >
-                <ChevronLeft className="w-4 h-4" />
-                Anterior
-              </Button>
+                <div className="flex items-center gap-2">
+                  <ChevronLeft className="w-4 h-4" />
+                  Anterior
+                </div>
+              </FancyButton>
 
-              <Button
-                variant="outline"
-                onClick={resetToBeginning}
-                className="flex items-center gap-2 bg-transparent"
-              >
-                <RotateCcw className="w-4 h-4" />
-                Recomeçar
-              </Button>
+              <FancyButton onClick={resetToBeginning}>
+                <div className="flex items-center gap-2">
+                  Recomeçar
+                  <RotateCcw className="w-4 h-4" />
+                </div>
+              </FancyButton>
 
-              <Button
+              <FancyButton
                 onClick={nextSection}
+                // type="green"
                 disabled={currentSection === contentSections.length - 1}
-                className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
               >
-                Próximo
-                <ChevronRight className="w-4 h-4" />
-              </Button>
+                <div className="flex items-center gap-2">
+                  Próximo
+                  <ChevronRight className="w-4 h-4" />
+                </div>
+              </FancyButton>
             </div>
 
             {currentSection === contentSections.length - 1 && (

@@ -1,3 +1,4 @@
+import { FancyButton } from "../content/components/FancyButton";
 import { Brain } from "lucide-react";
 
 export default function CalmindPopup({
@@ -28,7 +29,7 @@ export default function CalmindPopup({
         "
       style={{ outline: "2px solid #3b82f6" }} // opcional, para aquele contorno azul claro da borda
     >
-      <div className="flex items-center space-x-2 justify-between">
+      <div className="flex items-center space-x-2 justify-between mb-5">
         <div className="bg-blue-500 rounded-full p-2">
           <Brain className="w-8 h-8 text-white" />
         </div>
@@ -39,20 +40,15 @@ export default function CalmindPopup({
       </div>
       <button
         className="
-          bg-blue-500 
-          text-white 
-            rounded-md
-            border
-            px-4 
-            py-2 
-            w-full
-          hover:bg-blue-600
-            transition
-          "
+        hover:top-[-4px] hover:shadow-[0_4px_0_0_#2563eb,0_4px_4px_0_rgba(0,0,0,0.4)] active:top-0 active:shadow-[0_0px_0_0_#2563eb]
+        text-white font-bold px-6 py-3 text-base overflow-hidden relative -top-3 rounded-[18px] border-[3px] border-blue-600 bg-blue-500 shadow-[0_8px_0_0_#2563eb,0_8px_8px_0_rgba(0,0,0,0.4)]"
         onClick={showNewLayout}
       >
         Ativar Calmind
       </button>
+      {/* <FancyButton type="blue" onClick={showNewLayout}>
+        Ativar Calmind
+      </FancyButton> */}
     </div>
   );
 }
