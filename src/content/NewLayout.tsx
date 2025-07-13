@@ -3,7 +3,7 @@ import Templates from "../controllers/Templates";
 import type { Readability } from "@mozilla/readability";
 import type { ContentSection } from "@/model/content_section";
 import type { UserPreferences } from "@/model/user_preferences";
-import CalmindLayout from "./CalmindLayout";
+import { CalmindLayout } from "./CalmindLayout";
 
 function NewLayout({
   showOriginalLayout,
@@ -31,7 +31,7 @@ function NewLayout({
   }, []);
 
   const preferences: UserPreferences = {
-    hasReadingDifficulty: true,
+    hasReadingDifficulty: false,
     hasFocusDifficulty: true,
   };
 
