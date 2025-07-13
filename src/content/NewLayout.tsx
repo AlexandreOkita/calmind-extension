@@ -28,12 +28,16 @@ function NewLayout({
     getFirstTemplate();
   }, []);
 
+  const preferences = {
+    hasReadingDifficulty: true,
+    hasFocusDifficulty: true,
+  };
+
   return (
     <>
       <CalmindLayout
-        onSubmit={(preferences) => {
-          console.log(preferences);
-        }}
+        preferences={preferences}
+        onBack={() => {}}
       ></CalmindLayout>
       <div
         style={{
