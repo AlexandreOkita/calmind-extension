@@ -42,7 +42,7 @@ export class TextNeurodiversityBuilder {
   }
 
   withFontBold(): this {
-    if (this.preferences.hasReadingDifficulty) {
+    if (this.preferences.hasRelevanceDifficulty) {
       this.textStyles.shouldUseBold = true;
     }
     return this;
