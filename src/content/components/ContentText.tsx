@@ -16,13 +16,19 @@ export function ContentText({
     return splitted_close_tag.map((part, index) => {
       if (index % 2 === 0) {
         console.log("part", part);
-        return <span key={index}>{part}</span>;
+        return (
+          <span key={index} className={`whitespace-pre-line`}>
+            {part}
+          </span>
+        );
       } else {
         console.log("bold part", part);
         return (
           <strong
             key={index}
-            className={`${textStyles.shouldUseBold ? " font-bold" : ""}`}
+            className={`${
+              textStyles.shouldUseBold ? " font-bold" : ""
+            } whitespace-pre-line`}
           >
             {part}
           </strong>

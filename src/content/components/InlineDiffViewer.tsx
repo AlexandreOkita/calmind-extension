@@ -6,7 +6,8 @@ type Props = {
 };
 
 export function InlineDiffViewer({ oldText, newText }: Props) {
-  const diffs = diffWords(oldText, newText);
+  const newTextCleaned = newText.replace(/<[^>]*>/g, "");
+  const diffs = diffWords(oldText, newTextCleaned);
 
   return (
     <p style={{ fontFamily: "monospace", lineHeight: 1.6 }}>
