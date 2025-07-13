@@ -6,7 +6,9 @@ import React, {
 } from "react";
 
 // Definindo a interface para o estado e as funções do contexto de dislexia
-interface DyslexiaSettings {
+interface NeuroDiversitySettings {
+  textExperience: "original" | "replaced" | "diff";
+  setTextExperience: (value: "original" | "replaced" | "diff") => void;
   fontSize: number[];
   setFontSize: (value: number[]) => void;
   letterSpacing: number[];
@@ -36,14 +38,14 @@ interface DyslexiaSettings {
 }
 
 // Criando o Contexto com um valor padrão (pode ser null, mas é bom ter um tipo)
-const DyslexiaSettingsContext = createContext<DyslexiaSettings | undefined>(
-  undefined
-);
+const NeuroDiversitySettingsContext = createContext<
+  NeuroDiversitySettings | undefined
+>(undefined);
 
 // Criando um hook personalizado para usar o contexto
 // eslint-disable-next-line react-refresh/only-export-components
 export const useDyslexiaSettings = () => {
-  const context = useContext(DyslexiaSettingsContext);
+  const context = useContext(NeuroDiversitySettingsContext);
   if (!context) {
     throw new Error(
       "useDyslexiaSettings must be used within a DyslexiaSettingsProvider"
@@ -58,6 +60,9 @@ export const DyslexiaSettingsProvider = ({
 }: {
   children: ReactNode;
 }) => {
+  const [textExperience, setTextExperience] = useState<
+    "original" | "replaced" | "diff"
+  >("replaced");
   const [fontSize, setFontSize] = useState([18]);
   const [letterSpacing, setLetterSpacing] = useState([0.05]);
   const [lineHeight, setLineHeight] = useState([1.8]);
@@ -119,6 +124,8 @@ export const DyslexiaSettingsProvider = ({
   };
 
   const value = {
+    textExperience,
+    setTextExperience,
     fontSize,
     setFontSize,
     letterSpacing,
@@ -143,8 +150,8 @@ export const DyslexiaSettingsProvider = ({
   };
 
   return (
-    <DyslexiaSettingsContext.Provider value={value}>
+    <NeuroDiversitySettingsContext.Provider value={value}>
       {children}
-    </DyslexiaSettingsContext.Provider>
+    </NeuroDiversitySettingsContext.Provider>
   );
 };

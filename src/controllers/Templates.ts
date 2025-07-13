@@ -115,10 +115,22 @@ export default class Templates {
       const data = await response.json();
       // const data = DATA;
       console.log("Template fetched successfully:", data);
-      return data.replaced_chunks.map((chunk: any) => ({
-        title: chunk.chunk_title,
-        content: chunk.chunk_content,
-      })) as ContentSection[];
+      const mergedChunks = data.replaced_chunks.map(
+        (
+          replacedChunk: { chunk_title: string; chunk_content: string },
+          index: number
+        ) => {
+          const originalChunk = data.original_chunks[index];
+          return {
+            originalTitle: originalChunk?.chunk_title || "",
+            originalContent: originalChunk?.chunk_content || "",
+            replacedTitle: replacedChunk.chunk_title,
+            replacedContent: replacedChunk.chunk_content,
+          };
+        }
+      );
+      console.log("Merged chunks:", mergedChunks);
+      return mergedChunks;
     } catch (error) {
       console.error("Erro em getFirstTemplate:", error);
       throw error;

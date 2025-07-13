@@ -2,7 +2,9 @@ import { Button } from "../../components/ui/button";
 import { ChevronLeft, Layout } from "lucide-react";
 import type { UserPreferences } from "../../model/user_preferences";
 import type { ContentSection } from "@/model/content_section";
-import { useDyslexiaSettings } from "../contexts/DyslexiaSettingsContext"; // Importe o hook
+import { useDyslexiaSettings } from "../contexts/NeuroDiversitySettingsContext"; // Importe o hook
+import { TextDiffController } from "./TextDiffController";
+import { InlineDiffViewer } from "./InlineDiffViewer";
 
 type DefaultContentProps = {
   preferences: UserPreferences; // Mantenha as preferências para outras lógicas
@@ -20,6 +22,8 @@ export function DefaultContent({
     // letterSpacing,
     // lineHeight,
     // wordSpacing,
+    textExperience,
+    setTextExperience,
     getFontFamilyClass,
     getColorScheme,
     dyslexiaStyles,
@@ -28,9 +32,23 @@ export function DefaultContent({
   } = useDyslexiaSettings(); // Consuma as configurações de dislexia
 
   const colors = getColorScheme();
-  const fullContent = contentSections
-    .map((section) => section.content)
-    .join("\n\n");
+
+  const getTextExperience = (contentSection: ContentSection) => {
+    switch (textExperience) {
+      case "replaced":
+        return contentSection.replacedContent;
+      case "diff":
+        return (
+          <InlineDiffViewer
+            oldText={contentSection.originalContent}
+            newText={contentSection.replacedContent}
+          />
+        );
+      case "original":
+      default:
+        return contentSection.originalContent;
+    }
+  };
 
   // As props dinâmicas baseadas nas configurações de dislexia
   const commonTextProps = preferences.hasReadingDifficulty
@@ -38,7 +56,7 @@ export function DefaultContent({
         className: `${colors.text} ${getFontFamilyClass()} `,
         style: dyslexiaStyles,
       }
-    : { className: "text-lg leading-relaxed text-gray-700" };
+    : { className: "text-lg leading-relaxed text-gray-700 mb-8" };
 
   const titleProps = preferences.hasReadingDifficulty
     ? {
@@ -75,15 +93,17 @@ export function DefaultContent({
               : { maxWidth: "65ch" }
           }
         >
-          <h1 {...titleProps}>{contentSections[0].title}</h1>
+          <h1 {...titleProps}>{contentSections[0].replacedTitle}</h1>
+          <TextDiffController
+            viewMode={textExperience}
+            setViewMode={setTextExperience}
+          />
 
           <div className="space-y-6">
-            {fullContent.split("\n\n").map((paragraph, index) => (
-              <br key={index}>
-                <p key={index} {...commonTextProps}>
-                  {paragraph}
-                </p>
-              </br>
+            {contentSections.map((section, index) => (
+              <p key={index} {...commonTextProps}>
+                {getTextExperience(section)}
+              </p>
             ))}
           </div>
         </div>

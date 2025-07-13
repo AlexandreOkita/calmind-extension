@@ -3,7 +3,7 @@
 import {
   DyslexiaSettingsProvider,
   useDyslexiaSettings,
-} from "./contexts/DyslexiaSettingsContext";
+} from "./contexts/NeuroDiversitySettingsContext";
 import { DyslexiaControls } from "./components/DyslexiaControls";
 import { SteppedContent } from "./components/SteppedContent"; // Importe SteppedContent
 import { DefaultContent } from "./components/DefaultContent"; // Importe DefaultContent

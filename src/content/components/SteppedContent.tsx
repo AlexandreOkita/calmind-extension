@@ -4,8 +4,10 @@ import { Button } from "../../components/ui/button";
 import { ChevronLeft, ChevronRight, RotateCcw, Layout } from "lucide-react";
 import type { UserPreferences } from "../../model/user_preferences";
 import type { ContentSection } from "@/model/content_section";
-import { useDyslexiaSettings } from "../contexts/DyslexiaSettingsContext"; // Importe o hook
+import { useDyslexiaSettings } from "../contexts/NeuroDiversitySettingsContext"; // Importe o hook
 import { ProgressHeader } from "../components/ProgressHeader";
+import { InlineDiffViewer } from "./InlineDiffViewer";
+import { TextDiffController } from "./TextDiffController";
 
 type SteppedContentProps = {
   preferences: UserPreferences;
@@ -26,6 +28,8 @@ export function SteppedContent({
     // wordSpacing,
     // highContrast,
     // fontFamily,
+    textExperience,
+    setTextExperience,
     maxWidth,
     getFontFamilyClass,
     getColorScheme,
@@ -69,6 +73,21 @@ export function SteppedContent({
       }
     : { className: "text-3xl font-bold mb-4 text-gray-900" };
 
+  const showTextExperience = () => {
+    if (textExperience === "original") {
+      return <p {...commonTextProps}>{section.originalContent}</p>;
+    } else if (textExperience === "replaced") {
+      return <p {...commonTextProps}>{section.replacedContent}</p>;
+    } else if (textExperience === "diff") {
+      return (
+        <InlineDiffViewer
+          oldText={section.originalContent}
+          newText={section.replacedContent}
+        />
+      );
+    }
+  };
+
   return (
     <div
       className={`min-h-screen ${
@@ -93,7 +112,11 @@ export function SteppedContent({
       <main className="container mx-auto px-4 py-8">
         <Card className="max-w-4xl mx-auto shadow-lg">
           <CardContent className="p-8">
-            <h1 {...titleProps}>{section.title}</h1>
+            <h1 {...titleProps}>{section.replacedTitle}</h1>
+            <TextDiffController
+              viewMode={textExperience}
+              setViewMode={setTextExperience}
+            />
             <div
               style={{
                 maxWidth: preferences.hasReadingDifficulty
@@ -101,9 +124,8 @@ export function SteppedContent({
                   : "none",
               }}
             >
-              <p {...commonTextProps}>{section.content}</p>
+              {showTextExperience()}
             </div>
-
             <div className="flex items-center justify-between pt-6 border-t">
               <Button
                 variant="outline"

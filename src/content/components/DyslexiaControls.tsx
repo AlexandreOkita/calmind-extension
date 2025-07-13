@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 import { Settings, Type, Palette } from "lucide-react";
-import { useDyslexiaSettings } from "../contexts/DyslexiaSettingsContext"; // Importe o hook
+import { useDyslexiaSettings } from "../contexts/NeuroDiversitySettingsContext"; // Importe o hook
 import { Button } from "../../components/ui/button";
 
 // DyslexiaControls não precisa mais de props para os estados e setters

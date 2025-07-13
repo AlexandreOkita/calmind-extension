@@ -74,7 +74,7 @@ function NewLayout({
   }, []);
 
   const preferences: UserPreferences = {
-    hasReadingDifficulty: false,
+    hasReadingDifficulty: true,
     hasFocusDifficulty: true,
   };
 

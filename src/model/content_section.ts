@@ -1,4 +1,6 @@
 export interface ContentSection {
-  title: string;
-  content: string;
+  originalTitle: string;
+  originalContent: string;
+  replacedTitle: string;
+  replacedContent: string;
 }
