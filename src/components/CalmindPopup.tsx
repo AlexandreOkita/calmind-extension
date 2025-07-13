@@ -1,3 +1,5 @@
+import { Brain } from "lucide-react";
+
 export default function CalmindPopup({
   showNewLayout,
 }: {
@@ -28,21 +30,7 @@ export default function CalmindPopup({
     >
       <div className="flex items-center space-x-2 justify-between">
         <div className="bg-blue-500 rounded-full p-2">
-          {/* Ícone do cérebro */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="white"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 12h6M12 9v6M5.25 12a7.5 7.5 0 0015 0"
-            />
-          </svg>
+          <Brain className="w-8 h-8 text-white" />
         </div>
         <div>
           <h2 className="font-bold text-lg">Calmind</h2>
