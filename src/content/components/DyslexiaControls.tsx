@@ -46,13 +46,6 @@ export function DyslexiaControls() {
           <Settings className="w-5 h-5" />
           Personalize sua Experiência
         </h3>
-        {/* Você pode manter o botão de toggle aqui, se ele controlar a visibilidade dos próprios controles */}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setShowControls(!showControls)}
-          className="flex items-center gap-2"
-        ></Button>
       </CardHeader>
       <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* ... (Seu JSX para os controles aqui, usando as variáveis do useDyslexiaSettings) ... */}

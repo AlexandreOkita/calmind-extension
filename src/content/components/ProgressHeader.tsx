@@ -1,5 +1,6 @@
 import { Button } from "../../components/ui/button";
 import { ChevronLeft, Eye } from "lucide-react";
+import { FancyButton } from "./FancyButton";
 
 type ProgressHeaderProps = {
   onBack: () => void;
@@ -27,13 +28,23 @@ export function ProgressHeader({
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between mb-3">
           <Button
-            variant="outline"
             onClick={onBack}
-            className="flex items-center gap-2 bg-transparent"
+            className="
+            hover:bg-blue-500
+        hover:top-[-4px] hover:shadow-[0_4px_0_0_#2563eb,0_4px_4px_0_rgba(0,0,0,0.4)] active:top-0 active:shadow-[0_0px_0_0_#2563eb]
+        text-white font-bold px-6 py-3 text-base overflow-hidden -top-3 rounded-[18px] border-[3px] border-blue-600 bg-blue-500 shadow-[0_8px_0_0_#2563eb,0_8px_8px_0_rgba(0,0,0,0.4)]"
           >
-            <ChevronLeft className="w-4 h-4" />
-            Voltar
+            <div className="flex items-center gap-2">
+              <ChevronLeft className="w-4 h-4" />
+              Voltar
+            </div>
           </Button>
+          {/* <FancyButton onClick={onBack}>
+            <div className="flex items-center gap-2">
+              <ChevronLeft className="w-4 h-4" />
+              Voltar
+            </div>
+          </FancyButton> */}
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <Eye className="w-4 h-4 text-green-600" />
             {hasReadingDifficulty
