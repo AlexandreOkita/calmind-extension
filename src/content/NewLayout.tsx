@@ -19,8 +19,8 @@ function NewLayout({showOriginalLayout, article}: {showOriginalLayout: () => voi
 
   return (
     <>
-    <div style={{ backgroundColor: "white", height: "100vh" }}>
-        <h1>Novo título</h1>
+    <div className="bg-red h-screen">
+        <h1 className="bg-blue-400">Novo título3</h1>
         <h3>Sub título</h3>
         <span>Conteúdo do novo layout</span>
       </div>

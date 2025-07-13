@@ -62,7 +62,7 @@ function App() {
       }}
       onClick={showNewLayout}
     >
-      <p>{'Aplicar novo layout'}</p>
+      <p className="bg-red-500 text-white p-2 rounded">Aplicar novo layout</p>
     </div>
   )
 }
