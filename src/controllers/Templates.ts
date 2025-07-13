@@ -167,39 +167,42 @@ export default class Templates {
     content,
     excerpt,
     textContent,
+    difficulties,
   }: {
     title?: string | null;
     content?: string | null;
     excerpt?: string | null;
     textContent?: string | null;
+    difficulties?: string[] | null;
   }): Promise<ContentSection[]> {
     console.log("Fetching first template with data:", {
       title,
       content,
       excerpt,
       textContent,
+      difficulties,
     });
 
     try {
       console.log("Before response");
-      // const response = await fetch(
-      //   "https://calmind-ai-280945405622.southamerica-east1.run.app",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({ title, content }),
-      //   }
-      // );
-      // console.log("After response");
+      const response = await fetch(
+        "https://calmind-ai-280945405622.southamerica-east1.run.app",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, content, difficulties }),
+        }
+      );
+      console.log("After response");
 
-      // if (!response.ok) {
-      //   throw new Error(`Erro ao buscar template: ${response.statusText}`);
-      // }
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar template: ${response.statusText}`);
+      }
 
-      // const data = await response.json();
-      const data = DATA;
+      const data = await response.json();
+      // const data = DATA;
       console.log("Template fetched successfully:", data);
       const mergedChunks = data.replaced_chunks.map(
         (

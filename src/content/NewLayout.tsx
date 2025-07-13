@@ -49,32 +49,38 @@ function NewLayout({
 }) {
   const [contentSections, setContentSections] = useState<ContentSection[]>([]);
   const [loading, setLoading] = useState(true);
+  const [difficulties, setDifficulties] = useState<string[]>([]);
 
   async function getFirstTemplate() {
     console.log("Article:", article);
-    chrome.storage.local.get("calmind_profile", (result) => {
+    chrome.storage.local.get("calmind_profile", async (result) => {
       const profile = result.calmind_profile;
       console.log("Perfil carregado:", profile);
-    });
 
-    const template = await Templates.getFirstTemplate({
-      title: article?.title,
-      content: article?.content,
-      excerpt: article?.excerpt,
-      textContent: article?.textContent,
-    });
+      const template = await Templates.getFirstTemplate({
+        title: article?.title,
+        content: article?.content,
+        excerpt: article?.excerpt,
+        textContent: article?.textContent,
+        difficulties: profile?.difficulties,
+      });
 
-    setContentSections(template);
-    setLoading(false);
+      setDifficulties(profile?.difficulties || []);
+      setContentSections(template);
+      setLoading(false);
+    });
   }
 
   useEffect(() => {
     getFirstTemplate();
   }, []);
 
+  console.log({ difficulties });
   const preferences: UserPreferences = {
-    hasReadingDifficulty: true,
-    hasFocusDifficulty: true,
+    hasReadingDifficulty:
+      difficulties.includes("reading_challenges") ||
+      difficulties.includes("focus_assistance"),
+    hasFocusDifficulty: difficulties.includes("long_texts"),
   };
 
   if (loading) {
