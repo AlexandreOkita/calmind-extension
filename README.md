@@ -1,69 +1,76 @@
-# React + TypeScript + Vite
+# Calmind
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🧠 O que é o Calmind?
 
-Currently, two official plugins are available:
+O **Calmind** é uma extensão para o Google Chrome que usa **inteligência artificial** para tornar conteúdos da internet mais acessíveis a **pessoas neurodivergentes**.  
+Nosso objetivo é transformar páginas com blocos extensos de texto em informações mais claras, organizadas e fáceis de ler.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este repositório contém o backend responsável por **orquestrar as chamadas ao modelo Gemini**, que adapta o conteúdo original para um formato mais acessível.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 💡 Por que criamos isso?
 
+Muito se fala sobre **diversidade e inclusão** no mercado de trabalho, mas pouco se discute sobre **acessibilidade no aprendizado**.  
+Como uma pessoa neurodivergente pode se capacitar se a maioria dos conteúdos online são difíceis de consumir?  
+E quando ingressam em uma empresa, conseguem realmente entender os materiais de onboarding?
+E essa extensão é expansível para *qualquer* tipo de conteúdo de texto.
+
+O Calmind nasceu para **reduzir essas barreiras** e promover uma internet mais inclusiva.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- Chrome Extension APIs
+
+---
+
+## ⚙️ Requisitos
+
+- [Node.js](https://nodejs.org/) instalado (v20 ou superior)
+
+---
+
+## 📦 Instalação e Execução
+
+1. **Clone o repositório**
+2. Instale as dependências
 ```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+npm run install
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
+3. Build do projeto
+   
+Para gerar os arquivos da extensão, execute:
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+npm run build:all
 ```
+4. Instale a extensão no Google Chrome:
+
+- Acesse chrome://extensions/
+- Ative o Modo do desenvolvedor (canto superior direito)
+- Clique em "Carregar sem compactação"
+- Selecione a pasta dist/ gerada
+
+## 🧪 Como Usar
+1. Após a instalação, um formulário será aberto automaticamente  
+2. Marque suas dificuldades, como:
+
+   ✅ "Ler é um desafio para mim"  
+   ✅ "Palavras difíceis me atrapalham"  
+   ✅ entre outras
+
+3. Acesse qualquer site que deseja consumir de forma mais acessível  
+4. Clique em **"Ativar Calmind"** no canto inferior direito da tela  
+
+✨ **Pronto! Agora é só aproveitar e navegar pela internet de forma mais leve, clara e acessível.**
+
+
+## 🔗 Integração com o Backend
+
+Este frontend se comunica com o [calmind-ai-processor](https://github.com/mariabsouza/calmind-ai-processor) (backend), responsável por processar e simplificar os textos com base nas preferências do usuário.
+
