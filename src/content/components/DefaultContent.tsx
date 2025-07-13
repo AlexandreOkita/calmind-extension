@@ -5,6 +5,8 @@ import type { ContentSection } from "@/model/content_section";
 import { useDyslexiaSettings } from "../contexts/NeuroDiversitySettingsContext"; // Importe o hook
 import { TextDiffController } from "./TextDiffController";
 import { InlineDiffViewer } from "./InlineDiffViewer";
+import { ContentText } from "./ContentText";
+import { TextNeurodiversityBuilder } from "../../model/text_neurodiversity_builder";
 
 type DefaultContentProps = {
   preferences: UserPreferences; // Mantenha as preferências para outras lógicas
@@ -33,10 +35,22 @@ export function DefaultContent({
 
   const colors = getColorScheme();
 
+  const textStyles = new TextNeurodiversityBuilder(preferences)
+    .withFontFamily(getFontFamilyClass())
+    .withTextColor(colors.text)
+    .withFontBold()
+    .withDyslexiaStyles(dyslexiaStyles)
+    .build();
+
   const getTextExperience = (contentSection: ContentSection) => {
     switch (textExperience) {
       case "replaced":
-        return contentSection.replacedContent;
+        return (
+          <ContentText
+            text={contentSection.replacedContent}
+            textStyles={textStyles}
+          />
+        );
       case "diff":
         return (
           <InlineDiffViewer
@@ -45,18 +59,21 @@ export function DefaultContent({
           />
         );
       case "original":
+        return (
+          <ContentText
+            text={contentSection.originalContent}
+            textStyles={textStyles}
+          />
+        );
       default:
-        return contentSection.originalContent;
+        return (
+          <ContentText
+            text={contentSection.replacedContent}
+            textStyles={textStyles}
+          />
+        );
     }
   };
-
-  // As props dinâmicas baseadas nas configurações de dislexia
-  const commonTextProps = preferences.hasReadingDifficulty
-    ? {
-        className: `${colors.text} ${getFontFamilyClass()} `,
-        style: dyslexiaStyles,
-      }
-    : { className: "text-lg leading-relaxed text-gray-700 mb-8" };
 
   const titleProps = preferences.hasReadingDifficulty
     ? {
@@ -102,9 +119,7 @@ export function DefaultContent({
 
           <div className="space-y-6">
             {contentSections.map((section, index) => (
-              <p key={index} {...commonTextProps}>
-                {getTextExperience(section)}
-              </p>
+              <div key={index}>{getTextExperience(section)}</div>
             ))}
           </div>
         </div>
