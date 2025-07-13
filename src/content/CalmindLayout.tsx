@@ -22,56 +22,20 @@ import {
   RotateCcw,
 } from "lucide-react";
 import type { UserPreferences } from "../model/user_preferences";
+import type { ContentSection } from "@/model/content_section";
 
-interface AdaptiveContentProps {
+type AdaptiveContentProps = {
   preferences: UserPreferences;
+  contentSections: ContentSection[];
   onBack: () => void;
-}
+};
 
 // Dados do conteúdo divididos em seções para modo foco
-const contentSections = [
-  {
-    title: "Como Usar Inteligência Artificial no seu TCC de Forma Ética",
-    subtitle:
-      "Guia completo para estudantes sobre o uso responsável de IA em trabalhos acadêmicos",
-    content:
-      "A Inteligência Artificial chegou para revolucionar a forma como produzimos conhecimento acadêmico. Mas como usar essas ferramentas de forma ética e produtiva no seu Trabalho de Conclusão de Curso?",
-  },
-  {
-    title: "IA como Ferramenta de Apoio",
-    subtitle: "Entendendo o papel correto da tecnologia",
-    content:
-      "Primeiro, é importante entender que a IA deve ser uma ferramenta de apoio, não um substituto para seu pensamento crítico. Ela pode ajudar na organização de ideias, revisão de textos e até mesmo na análise de dados.",
-  },
-  {
-    title: "Transparência e Ética Acadêmica",
-    subtitle: "A importância da honestidade intelectual",
-    content:
-      "Para usar IA de forma ética no seu TCC, sempre declare quando e como utilizou essas ferramentas. A transparência é fundamental para manter a integridade acadêmica do seu trabalho.",
-  },
-  {
-    title: "Principais Aplicações Práticas",
-    subtitle: "Como a IA pode ajudar concretamente",
-    content:
-      "As principais aplicações incluem: revisão gramatical e estilística, organização de referências bibliográficas, análise de dados quantitativos e geração de ideias para desenvolvimento de argumentos.",
-  },
-  {
-    title: "Limitações e Responsabilidades",
-    subtitle: "O que a IA não pode fazer por você",
-    content:
-      "Lembre-se de que o conhecimento original, a análise crítica e as conclusões devem sempre partir de você. A IA é uma ferramenta poderosa, mas o pensamento acadêmico genuíno continua sendo insubstituível.",
-  },
-  {
-    title: "Diretrizes Institucionais",
-    subtitle: "Consultando seu orientador e universidade",
-    content:
-      "Sempre consulte seu orientador sobre as políticas da sua instituição regarding o uso de IA. Cada universidade pode ter diretrizes específicas que devem ser respeitadas.",
-  },
-];
 
 export default function AdaptiveContent({
   preferences,
   onBack,
+  contentSections,
 }: AdaptiveContentProps) {
   // Estados para modo dislexia
   const [fontSize, setFontSize] = useState([18]);
@@ -364,9 +328,7 @@ export default function AdaptiveContent({
                       }
                     : {}
                 }
-              >
-                {section.subtitle}
-              </h2>
+              ></h2>
               <div
                 style={{
                   maxWidth: preferences.hasReadingDifficulty
@@ -657,9 +619,7 @@ export default function AdaptiveContent({
                   }
                 : {}
             }
-          >
-            {contentSections[0].subtitle}
-          </h2>
+          ></h2>
 
           <div className="space-y-6">
             {fullContent.split("\n\n").map((paragraph, index) => (
