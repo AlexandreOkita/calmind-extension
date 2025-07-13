@@ -81,11 +81,6 @@ function NewLayout({
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        {/* <div className="flex flex-row items-center justify-center">
-          <p className="mr-5">Adaptando sua experiência...</p>
-          <Spinner size="large" show={true} />
-        </div> */}
-
         <Loader />
       </div>
     );
@@ -98,22 +93,23 @@ function NewLayout({
         contentSections={contentSections}
         onBack={showOriginalLayout}
       />
-      <div
-        style={{
-          position: "fixed",
-          zIndex: 9999,
-          bottom: 20,
-          right: 20,
-          background: "white",
-          padding: "10px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-          cursor: "pointer",
-        }}
-        onClick={() => showOriginalLayout()}
+
+      <button
+        className="fixed z-50 bottom-5
+            right-5
+          bg-blue-500 
+          text-white 
+            rounded-md
+            border
+            px-4 
+            py-2 
+          hover:bg-blue-600
+            transition
+          "
+        onClick={showOriginalLayout}
       >
-        <p>Restaurar página original</p>
-      </div>
+        Restaurar página original
+      </button>
     </>
   );
 }

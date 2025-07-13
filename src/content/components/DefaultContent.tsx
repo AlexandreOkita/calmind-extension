@@ -67,6 +67,7 @@ export function DefaultContent({
 
   return (
     <div
+      id="default-content"
       className={`min-h-screen ${
         preferences.hasReadingDifficulty ? colors.bg : "bg-gray-50"
       }`}
