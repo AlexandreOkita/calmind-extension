@@ -9,7 +9,7 @@ export function ContentText({
   textStyles: TextNeurodiversityStyles;
 }) {
   function splitBoldText(text: string): ReactElement[] {
-    const splitted = text.split("**");
+    const splitted = text.split("*");
     return splitted.map((part, index) => {
       if (index % 2 === 0) {
         console.log("part", part);
