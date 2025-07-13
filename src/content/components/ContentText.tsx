@@ -9,8 +9,11 @@ export function ContentText({
   textStyles: TextNeurodiversityStyles;
 }) {
   function splitBoldText(text: string): ReactElement[] {
-    const splitted = text.split("*");
-    return splitted.map((part, index) => {
+    const splitted_open_tag = text.split("<strong>");
+    const splitted_close_tag = splitted_open_tag.flatMap((part) =>
+      part.split("</strong>")
+    );
+    return splitted_close_tag.map((part, index) => {
       if (index % 2 === 0) {
         console.log("part", part);
         return <span key={index}>{part}</span>;
@@ -19,9 +22,7 @@ export function ContentText({
         return (
           <strong
             key={index}
-            className={`${textStyles.className}${
-              textStyles.shouldUseBold ? " font-bold" : ""
-            }`}
+            className={`${textStyles.shouldUseBold ? " font-bold" : ""}`}
           >
             {part}
           </strong>
@@ -29,5 +30,17 @@ export function ContentText({
       }
     });
   }
-  return <p className={textStyles?.className}>{splitBoldText(text)}</p>;
+  return (
+    <p
+      style={{
+        fontSize: textStyles.style.fontSize,
+        letterSpacing: textStyles.style.letterSpacing,
+        lineHeight: textStyles.style.lineHeight,
+        wordSpacing: textStyles.style.wordSpacing,
+        ...textStyles.style,
+      }}
+    >
+      {splitBoldText(text)}
+    </p>
+  );
 }
